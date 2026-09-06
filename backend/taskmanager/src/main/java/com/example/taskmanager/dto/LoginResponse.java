@@ -2,17 +2,18 @@ package com.example.taskmanager.dto;
 
 public class LoginResponse {
     private String username;
-    private String password;
+    private String message;
 
-    public LoginResponse(){
-
+    public LoginResponse(String username, String message){
+        this.message=message;
+        this.username=message;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getMessage() {
+        return message;
     }
 }
