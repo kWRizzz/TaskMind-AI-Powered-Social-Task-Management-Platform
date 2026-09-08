@@ -58,7 +58,20 @@ public class TaskServices {
     }
 
     public List<TaskResponse> getAllTask(){
-        return taskRepository.findAll()
+        Authentication authentication= SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        String username= authentication.getName();
+
+        User user= userRepository.findByName(username)
+                .orElseThrow(()->
+                        new RuntimeException("User not found")
+                );
+
+
+
+        return taskRepository.findByUserId(user.getId())
                 .stream()
                 .map(taskMapper::toResponse)
                 .toList();
