@@ -3,6 +3,7 @@ package com.example.taskmanager.controller;
 
 import com.example.taskmanager.dto.TaskResponse;
 import com.example.taskmanager.model.User;
+import com.example.taskmanager.service.TaskServices;
 import com.example.taskmanager.service.UserServices;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +14,11 @@ import java.util.List;
 public class UserController {
 
     private final UserServices userServices;
+    private final TaskServices taskServices;
 
-    public UserController(UserServices userServices){
+    public UserController(UserServices userServices ,TaskServices taskServices){
         this.userServices=userServices;
+        this.taskServices=taskServices;
     }
 
 //    creating a user
@@ -34,5 +37,8 @@ public class UserController {
     public List<TaskResponse> getUserTasks(@PathVariable Long userId){
         return userServices.getUserTasks(userId);
     }
-
+    @GetMapping
+    public List<TaskResponse> getMyTask(){
+        return taskServices.getAllTask();
+    }
 }
