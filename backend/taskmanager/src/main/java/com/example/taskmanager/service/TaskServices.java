@@ -1,6 +1,7 @@
 package com.example.taskmanager.service;
 
 
+import com.example.taskmanager.config.SecurityConfig;
 import com.example.taskmanager.dto.TaskRequest;
 import com.example.taskmanager.dto.TaskResponse;
 import com.example.taskmanager.exception.TaskNotFoundException;
@@ -9,6 +10,8 @@ import com.example.taskmanager.model.Task;
 import com.example.taskmanager.model.User;
 import com.example.taskmanager.repository.TaskRepository;
 import com.example.taskmanager.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,9 +35,17 @@ public class TaskServices {
 
 //        return taskRepository.save(task);
 
-        User user= userRepository.findById(request.getUserId())
+        Authentication authentication= SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        String username= authentication.getName();
+
+        User user= userRepository.findByUsername(username)
                 .orElseThrow(()->
-                        new RuntimeException("User not Found"));
+                            new RuntimeException("User not found")
+                        );
+
 
         Task task =new Task(
                 request.getTitle(),
