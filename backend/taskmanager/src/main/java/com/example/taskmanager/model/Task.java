@@ -13,7 +13,7 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 //
 //    @NotBlank(message = "Title is required")
 //    @Size(min = 3 ,max = 100,message = "Enter in between range ")
@@ -41,7 +41,7 @@ public class Task {
         this.user = user;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

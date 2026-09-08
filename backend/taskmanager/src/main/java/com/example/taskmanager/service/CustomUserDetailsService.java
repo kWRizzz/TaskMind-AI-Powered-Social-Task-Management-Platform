@@ -1,14 +1,14 @@
 package com.example.taskmanager.service;
 
+import com.example.taskmanager.model.User;
 import com.example.taskmanager.repository.UserRepository;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomUserDetailsService implements CustomUserDetails{
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -17,12 +17,12 @@ public class CustomUserDetailsService implements CustomUserDetails{
     }
 
     @Override
-    public UserDetails loadUserByUserName(String username)
+    public UserDetails loadUserByUsername(String username)
         throws UsernameNotFoundException {
-        User user =userRepository.findByUsername(username)
+        User user = userRepository.findByName(username)
                 .orElseThrow(()->
                             new UsernameNotFoundException(
-                                    "user not found" + username
+                                    "user not found: " + username
                             )
                         );
 

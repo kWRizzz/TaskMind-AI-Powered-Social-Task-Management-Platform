@@ -7,7 +7,7 @@ public class LoginResponse {
 
     public LoginResponse(String username, String message ,String token){
         this.message=message;
-        this.username=message;
+        this.username=username;
         this.token=token;
     }
 

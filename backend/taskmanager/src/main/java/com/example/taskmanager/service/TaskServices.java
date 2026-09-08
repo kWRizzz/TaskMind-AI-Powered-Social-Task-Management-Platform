@@ -1,7 +1,5 @@
 package com.example.taskmanager.service;
 
-
-import com.example.taskmanager.config.SecurityConfig;
 import com.example.taskmanager.dto.TaskRequest;
 import com.example.taskmanager.dto.TaskResponse;
 import com.example.taskmanager.exception.TaskNotFoundException;
@@ -41,7 +39,7 @@ public class TaskServices {
 
         String username= authentication.getName();
 
-        User user= userRepository.findByUsername(username)
+        User user= userRepository.findByName(username)
                 .orElseThrow(()->
                             new RuntimeException("User not found")
                         );
