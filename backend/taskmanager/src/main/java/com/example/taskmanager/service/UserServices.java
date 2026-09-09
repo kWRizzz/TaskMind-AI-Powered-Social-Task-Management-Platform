@@ -32,6 +32,10 @@ public class UserServices {
 
         user.setPassword(encodedPassword);
 
+        if(user.getRole()==null || user.getRole().isBlank()){
+            user.setRole("USER");
+        }
+
         return userRepository.save(user);
     }
 
