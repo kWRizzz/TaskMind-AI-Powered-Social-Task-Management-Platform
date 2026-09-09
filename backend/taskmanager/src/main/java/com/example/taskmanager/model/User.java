@@ -15,19 +15,29 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private String role;
+
 
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;
 
     public User(){}
 
-    public User(Long id, String name, String email , String password){
+    public User(Long id, String name, String email , String password ,String role){
         this.id=id;
         this.email=email;
         this.name=name;
         this.password=password;
+        this.role=role;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public Long getId() {
         return id;
