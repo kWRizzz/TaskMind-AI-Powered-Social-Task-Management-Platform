@@ -41,4 +41,9 @@ public class UserController {
     public List<TaskResponse> getMyTask(){
         return taskServices.getAllTask();
     }
+//    dummy admin route
+    @GetMapping("/admin")
+    public String adminOnly(){
+        return "Welcome admin";
+    }
 }
