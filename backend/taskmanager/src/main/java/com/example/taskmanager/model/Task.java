@@ -141,6 +141,14 @@ public class Task {
         return updatedAt;
     }
 
+    public TaskStatus getStatus() {
+        return taskStatus;
+    }
+
+    public TaskPriority getPriority(){
+        return taskPriority;
+    }
+
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }

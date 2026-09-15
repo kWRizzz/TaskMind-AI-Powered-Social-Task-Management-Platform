@@ -86,6 +86,6 @@ public class TaskResponse {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
-    
+
 
 }

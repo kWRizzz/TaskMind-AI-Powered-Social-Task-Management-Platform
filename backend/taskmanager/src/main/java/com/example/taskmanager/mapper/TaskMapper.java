@@ -13,7 +13,14 @@ public class TaskMapper {
         return new TaskResponse(
                 task.getId(),
                 task.getTitle(),
-                task.isCompleted()
+                task.getDescription(),
+                task.getStatus(),
+                task.getPriority(),
+                task.getDueDate(),
+                task.getCategory(),
+                task.getEstimatedMinutes(),
+                task.getCreatedAt(),
+                task.getUpdatedAt()
         );
     }
 }
