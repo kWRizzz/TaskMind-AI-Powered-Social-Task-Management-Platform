@@ -116,7 +116,7 @@ public class TaskServices {
         return taskMapper.toResponse(task);
     }
 
-    public TaskResponse updateTask(Long id , Task updatedTask , TaskRequest request){
+    public TaskResponse updateTask(Long id , TaskRequest request){
 
         User user= getCurrentUser();
 

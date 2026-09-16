@@ -6,6 +6,7 @@ import com.example.taskmanager.dto.TaskResponse;
 import com.example.taskmanager.model.Task;
 import com.example.taskmanager.service.TaskServices;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,11 +55,12 @@ public class HelloController {
     }
 
     @PutMapping("/task/{id}")
-    public TaskResponse updateTask(@PathVariable Long id, @RequestBody Task task){
-        return taskServices.updateTask(id,task);
+    public TaskResponse updateTask(@PathVariable Long id,@Valid @RequestBody TaskRequest request){
+        return taskServices.updateTask(id,request);
     }
 
     @DeleteMapping("/task/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public String deleteTask(@PathVariable Long id){
           taskServices.deleteTask(id);
           return "Task delete";
