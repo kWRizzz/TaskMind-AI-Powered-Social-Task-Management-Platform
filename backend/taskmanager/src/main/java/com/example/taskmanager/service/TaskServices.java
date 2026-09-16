@@ -5,6 +5,8 @@ import com.example.taskmanager.dto.TaskResponse;
 import com.example.taskmanager.exception.TaskNotFoundException;
 import com.example.taskmanager.mapper.TaskMapper;
 import com.example.taskmanager.model.Task;
+import com.example.taskmanager.model.TaskPriority;
+import com.example.taskmanager.model.TaskStatus;
 import com.example.taskmanager.model.User;
 import com.example.taskmanager.repository.TaskRepository;
 import com.example.taskmanager.repository.UserRepository;
@@ -12,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -45,10 +48,34 @@ public class TaskServices {
                         );
 
 
-        Task task =new Task(
-                request.getTitle(),
-                request.isCompleted()
-        );
+        Task task =new Task();
+
+        task.setTitle(request.getTitle());
+        task.setDescription(request.getDescription());
+
+        if(request.getStatus()!=null){
+            task.setTaskStatus(
+                    TaskStatus.valueOf(request.getStatus().toUpperCase())
+            );
+        }else {
+            task.setTaskStatus(TaskStatus.TODO);
+        }
+
+        if(request.getPriority()!=null){
+            task.setTaskPriority(
+                    TaskPriority.valueOf(request.getPriority().toUpperCase())
+            );
+        }else{
+            task.setTaskPriority(TaskPriority.MEDIUM);
+        }
+
+        task.setCategory(request.getCategory());
+        task.setDueDate(request.getDueDate());
+        task.setEstimatedMinutes(request.getEstimatedMinutes());
+
+        task.setCreatedAt(LocalDateTime.now());
+        task.setUpdatedAt(LocalDateTime.now());
+
 
         task.setUser(user);
 
@@ -88,7 +115,7 @@ public class TaskServices {
                 .orElseThrow(()-> new TaskNotFoundException("Cannot delete it" + id ));
 
         existingTask.setTitle(updatedTask.getTitle());
-        existingTask.setCompleted(updatedTask.isCompleted());
+//        existingTask.setCompleted(updatedTask.isCompleted());
 
         Task updatedTasks=taskRepository.save(existingTask);
 
