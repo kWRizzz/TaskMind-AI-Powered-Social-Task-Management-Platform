@@ -64,5 +64,6 @@ public class HelloController {
     public String deleteTask(@PathVariable Long id){
           taskServices.deleteTask(id);
           return "Task delete";
+          
     }
 }
