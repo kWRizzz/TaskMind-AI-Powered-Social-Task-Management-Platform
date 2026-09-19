@@ -4,6 +4,8 @@ package com.example.taskmanager.controller;
 import com.example.taskmanager.dto.TaskRequest;
 import com.example.taskmanager.dto.TaskResponse;
 import com.example.taskmanager.model.Task;
+import com.example.taskmanager.model.TaskPriority;
+import com.example.taskmanager.model.TaskStatus;
 import com.example.taskmanager.service.TaskServices;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -67,4 +69,15 @@ public class HelloController {
           return "Task delete";
 
     }
+
+    @GetMapping
+    public List<TaskResponse> getTask(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false)TaskStatus status,
+            @RequestParam(required = false)TaskPriority priority
+            ){
+        return taskServices.searchTasks(
+                search, status, priority);
+    }
+
 }
