@@ -59,11 +59,12 @@ public class HelloController {
         return taskServices.updateTask(id,request);
     }
 
+
     @DeleteMapping("/task/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public String deleteTask(@PathVariable Long id){
           taskServices.deleteTask(id);
           return "Task delete";
-          
+
     }
 }
