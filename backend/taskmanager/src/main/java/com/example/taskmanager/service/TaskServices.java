@@ -11,6 +11,10 @@ import com.example.taskmanager.model.User;
 import com.example.taskmanager.repository.TaskRepository;
 import com.example.taskmanager.repository.UserRepository;
 import com.example.taskmanager.specification.TaskSpecification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -183,7 +187,11 @@ public class TaskServices {
     public List<TaskResponse> searchTasks(
             String search,
             TaskStatus status,
-            TaskPriority priority
+            TaskPriority priority,
+            int page,
+            int size,
+            String sortBy,
+            String direction
     ){
         User user= getCurrentUser();
 
@@ -211,5 +219,49 @@ public class TaskServices {
                 .stream()
                 .map(taskMapper::toResponse)
                 .toList();
+    }
+
+    public Page<TaskResponse> searchTask(
+            String search,
+            int page,
+            int size,
+            TaskStatus status,
+            TaskPriority priority,
+            String sortBy,
+            String direction
+    ){
+        User user= getCurrentUser();
+
+        Specification<Task>  specification= TaskSpecification.hasUser(user.getId());
+
+        if(search!=null && !search.isBlank()){
+            specification= specification.and(
+                    TaskSpecification.titleContains(search)
+            );
+        }
+
+        if(status!=null){
+            specification=specification.and(
+                    TaskSpecification.hasStatus(status)
+            );
+        }
+
+        if(priority!=null){
+            specification=specification.and(
+                    TaskSpecification.hasPriority(priority)
+            );
+        }
+
+        Sort.Direction sortDirection= direction.equalsIgnoreCase("desc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+
+        Pageable pageable= PageRequest.of(
+                page,
+                size,
+                Sort.by(sortDirection,sortBy)
+        );
+
+        return  taskRepository
+                .findAll(specification,pageable)
+                .map(taskMapper::toResponse);
     }
 }

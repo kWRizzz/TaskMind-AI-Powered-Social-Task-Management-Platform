@@ -74,10 +74,14 @@ public class HelloController {
     public List<TaskResponse> getTask(
             @RequestParam(required = false) String search,
             @RequestParam(required = false)TaskStatus status,
-            @RequestParam(required = false)TaskPriority priority
+            @RequestParam(required = false)TaskPriority priority,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10")int size,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "desc") String direction
             ){
         return taskServices.searchTasks(
-                search, status, priority);
+                search, status, priority,page,size,sortBy,direction);
     }
 
 }

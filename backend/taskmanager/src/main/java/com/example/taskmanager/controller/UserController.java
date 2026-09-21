@@ -5,6 +5,7 @@ import com.example.taskmanager.dto.TaskResponse;
 import com.example.taskmanager.model.User;
 import com.example.taskmanager.service.TaskServices;
 import com.example.taskmanager.service.UserServices;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,4 +47,9 @@ public class UserController {
     public String adminOnly(){
         return "Welcome admin";
     }
+
+//    @GetMapping
+//    public Page<TaskResponses> getTask(
+//            @RequestParam(required = false) String
+//    )
 }
