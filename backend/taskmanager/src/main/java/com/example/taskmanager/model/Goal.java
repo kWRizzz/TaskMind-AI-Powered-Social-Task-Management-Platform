@@ -96,7 +96,7 @@ public class Goal {
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
-    
+
     public void setStatus(GoalStatus status) {
         this.status = status;
     }
