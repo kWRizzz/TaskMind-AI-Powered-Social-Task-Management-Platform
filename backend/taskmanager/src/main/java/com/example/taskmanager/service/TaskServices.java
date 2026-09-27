@@ -4,10 +4,8 @@ import com.example.taskmanager.dto.TaskRequest;
 import com.example.taskmanager.dto.TaskResponse;
 import com.example.taskmanager.exception.TaskNotFoundException;
 import com.example.taskmanager.mapper.TaskMapper;
-import com.example.taskmanager.model.Task;
-import com.example.taskmanager.model.TaskPriority;
-import com.example.taskmanager.model.TaskStatus;
-import com.example.taskmanager.model.User;
+import com.example.taskmanager.model.*;
+import com.example.taskmanager.repository.GoalRepository;
 import com.example.taskmanager.repository.TaskRepository;
 import com.example.taskmanager.repository.UserRepository;
 import com.example.taskmanager.specification.TaskSpecification;
@@ -30,11 +28,13 @@ public class TaskServices {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
     private final UserRepository userRepository;
+    private final GoalRepository goalRepository;
 
-    public TaskServices(TaskRepository taskRepository , TaskMapper taskMapper, UserRepository userRepository){
+    public TaskServices(TaskRepository taskRepository , TaskMapper taskMapper, UserRepository userRepository,GoalRepository goalRepository){
         this.taskRepository=taskRepository;
         this.taskMapper=taskMapper;
         this.userRepository=userRepository;
+        this.goalRepository=goalRepository;
     }
 
 //    @POST creating task
@@ -73,6 +73,18 @@ public class TaskServices {
             );
         }else{
             task.setTaskPriority(TaskPriority.MEDIUM);
+        }
+
+        if(request.getGoalId()!=null){
+            Goal goal= goalRepository.findById(
+                    request.getGoalId()
+            ).orElseThrow(()->new RuntimeException("Goal not found"));
+
+            if(!goal.getUser().equals(user.getId())){
+                throw new RuntimeException("Acces Denied");
+            }
+
+            task.setGoal(goal);
         }
 
         task.setCategory(request.getCategory());
