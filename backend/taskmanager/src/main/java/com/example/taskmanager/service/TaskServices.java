@@ -29,12 +29,14 @@ public class TaskServices {
     private final TaskMapper taskMapper;
     private final UserRepository userRepository;
     private final GoalRepository goalRepository;
+    private final GoalService goalService;
 
-    public TaskServices(TaskRepository taskRepository , TaskMapper taskMapper, UserRepository userRepository,GoalRepository goalRepository){
+    public TaskServices(TaskRepository taskRepository , TaskMapper taskMapper, UserRepository userRepository,GoalRepository goalRepository,GoalService goalService){
         this.taskRepository=taskRepository;
         this.taskMapper=taskMapper;
         this.userRepository=userRepository;
         this.goalRepository=goalRepository;
+        this.goalService=goalService;
     }
 
 //    @POST creating task
@@ -87,6 +89,9 @@ public class TaskServices {
             task.setGoal(goal);
         }
 
+        if (task.getGoal()!=null){
+            goalService.refreshGoalStatus(task.getGoal());
+        }
         task.setCategory(request.getCategory());
         task.setDueDate(request.getDueDate());
         task.setEstimatedMinutes(request.getEstimatedMinutes());

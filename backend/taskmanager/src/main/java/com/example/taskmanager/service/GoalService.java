@@ -96,6 +96,6 @@ public class GoalService {
         }
         goal.setUpdatedAt(LocalDateTime.now());
         goalRepository.save(goal);
-        
+
     }
 }
