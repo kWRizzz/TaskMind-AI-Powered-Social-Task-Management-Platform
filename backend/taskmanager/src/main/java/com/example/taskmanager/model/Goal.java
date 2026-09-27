@@ -3,6 +3,7 @@ package com.example.taskmanager.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Goal {
@@ -29,8 +30,15 @@ public class Goal {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "goal")
+    private List<Task> tasks;
+
     public Goal(){
 
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     public void setUser(User user) {

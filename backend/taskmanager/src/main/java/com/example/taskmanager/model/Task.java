@@ -40,6 +40,9 @@ public class Task {
 
     private LocalDateTime updatedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "goal_id")
+    private Goal goal;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -55,7 +58,13 @@ public class Task {
     }
 
 
+    public Goal getGoal() {
+        return goal;
+    }
 
+    public void setGoal(Goal goal) {
+        this.goal = goal;
+    }
 
     public User getUser() {
         return user;
