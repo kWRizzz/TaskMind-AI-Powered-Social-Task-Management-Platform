@@ -27,6 +27,8 @@ public class TaskRequest {
 
     private String category;
 
+    private Long goalId;
+
     @Size(
             min=1,
             message = "Estimed time  must be at least 1 min"
@@ -34,6 +36,14 @@ public class TaskRequest {
     private Integer estimatedMinutes;
 
     public TaskRequest(){}
+
+    public Long getGoalId() {
+        return goalId;
+    }
+
+    public void setGoalId(Long goalId) {
+        this.goalId = goalId;
+    }
 
     public String getTitle() {
         return title;
