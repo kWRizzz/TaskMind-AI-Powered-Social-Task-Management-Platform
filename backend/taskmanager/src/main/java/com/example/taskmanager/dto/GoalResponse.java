@@ -11,8 +11,11 @@ public class GoalResponse {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private GoalStatus status;
+    private long toalTask;
+    private long completedTask;
+    private double progress;
 
-    public GoalResponse(Long id, String title, String description, LocalDateTime startDate, LocalDateTime endDate, GoalStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public GoalResponse(long toalTask, long completedTask, double progress, Long id, String title, String description, LocalDateTime startDate, LocalDateTime endDate, GoalStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -21,12 +24,25 @@ public class GoalResponse {
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.toalTask=toalTask;
+        this.completedTask=completedTask;
+        this.progress=progress;
     }
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    public long getToalTask() {
+        return toalTask;
+    }
 
+    public long getCompletedTask() {
+        return completedTask;
+    }
+
+    public double getProgress() {
+        return progress;
+    }
 
     public Long getId() {
         return id;
