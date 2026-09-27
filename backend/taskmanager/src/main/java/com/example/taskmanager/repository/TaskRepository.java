@@ -24,5 +24,13 @@ public interface TaskRepository extends JpaRepository<Task,Long>, JpaSpecificati
             Long userId,
             TaskPriority priority
     );
+    List<Task> findByGoalId(
+            Long goalId
+    );
+    long countByGoalId(Long goalId);
+    long countByGoalIdAndStatus(
+            Long goalId,
+            TaskStatus status
+    );
 
 }
