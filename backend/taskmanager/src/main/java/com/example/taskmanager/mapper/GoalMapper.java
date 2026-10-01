@@ -24,14 +24,17 @@ public class GoalMapper {
                 TaskStatus.COMPLETED
         );
 
-        double progress = 0;
+        Long progress = 0l;
 
         if (totalTasks > 0) {
             progress =
-                    ((double) completedTasks / totalTasks) * 100;
+                    ((Long) completedTasks / totalTasks) * 100;
         }
 
         return new GoalResponse(
+                progress,
+                completedTasks,
+                totalTasks,
                 goal.getId(),
                 goal.getTitle(),
                 goal.getDescription(),
@@ -39,11 +42,7 @@ public class GoalMapper {
                 goal.getEndDate(),
                 goal.getStatus(),
                 goal.getCreatedAt(),
-                goal.getUpdatedAt(),
-                totalTasks,
-                completedTasks,
-                progress
-
+                goal.getUpdatedAt()
         );
     }
 }
