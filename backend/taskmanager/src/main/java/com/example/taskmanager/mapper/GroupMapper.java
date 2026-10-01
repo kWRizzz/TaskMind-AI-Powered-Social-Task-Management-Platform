@@ -11,7 +11,6 @@ public class GroupMapper {
             group.getId(),
                 group.getName(),
                 group.getDescription(),
-                    group.getDescription(),
                         group.getCreatedAt()
         );
     }
