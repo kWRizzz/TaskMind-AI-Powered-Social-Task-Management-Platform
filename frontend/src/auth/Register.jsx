@@ -5,7 +5,7 @@ const Register = () => {
     <div
         className=' flex justify-center items-center  '
     >
-
+      
     </div>
   )
 }
